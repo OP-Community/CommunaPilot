@@ -1,0 +1,18 @@
+name: Rebase Upstream
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # runs weekly on Sunday at midnight UTC
+  workflow_dispatch:     # manual trigger from GitHub UI
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # fetch all commits (full history)
+      - uses: imba-tjd/rebase-upstream-action@master
+        with:
+          upstream: commaai/openpilot
+          branch: master
